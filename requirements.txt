@@ -1,0 +1,5 @@
+chardet==5.2.0
+IPy==1.1
+loguru==0.7.2
+requests==2.31.0
+netaddr==0.9.0
