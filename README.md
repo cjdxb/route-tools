@@ -53,46 +53,58 @@ pip install -r requirements.txt
 
 #### Command Line Tools
 
-The project provides three main command-line entry points:
+The project provides a unified command-line tool `main.py` with subcommands:
+
+```bash
+# Show help
+python main.py --help
+
+# Or use entry point after installation
+bgp-tools --help
+```
 
 ##### 1. Generate Google Service IP Script
 
 ```bash
-python google.py
-# Or use entry point
-bgp-google
+python main.py google
+python main.py google -o output.rsc -l MY-LIST
 ```
 
-Generates a RouterOS script for Google service IPv4 addresses, output file: `lst0-google`.
+Generates a RouterOS script for Google service IPv4 addresses.
 
 ##### 2. Generate Global Route Script (Non-China IP)
 
 ```bash
-python ipv6_global_route.py
-# Or use entry point
-bgp-global
+python main.py global
+python main.py global -o output.rsc -l MY-LIST
 ```
 
-Generates a RouterOS script for non-China IPv4 CIDR, output file: `lst0-global`.
+Generates a RouterOS script for non-China IPv4 CIDR.
 
 ##### 3. Generate Direct Connection Rules Script
 
 ```bash
-python add_direct_data.py
-# Or use entry point
-bgp-direct
+python main.py direct
+python main.py direct -o output.rsc -l MY-LIST -x /path/to/xshell/config
 ```
 
 Generates a RouterOS script containing direct connection rules for China IP, server IP, Google services, etc.
+
+##### Common Options
+
+| Option | Description |
+|--------|-------------|
+| `-o, --output` | Output file path |
+| `-l, --list` | Address list name |
+| `-v, --verbose` | Show detailed logs |
+| `-q, --quiet` | Quiet mode, show errors only |
 
 ### 📁 Project Structure
 
 ```
 route-tools/
+├── main.py                # Main entry point (unified CLI)
 ├── config.py              # Global configuration
-├── google.py              # Google IP script generator entry
-├── ipv6_global_route.py   # Global route script generator entry
-├── add_direct_data.py     # Direct connection rules script entry
 ├── generator/             # Configuration generator module
 │   ├── ros.py            # RouterOS script generation
 │   ├── bird.py           # BIRD configuration generation
@@ -318,46 +330,58 @@ pip install -r requirements.txt
 
 #### 命令行工具
 
-项目提供三个主要的命令行入口：
+项目提供统一的命令行工具 `main.py`，通过子命令区分不同功能：
+
+```bash
+# 显示帮助
+python main.py --help
+
+# 安装后可使用入口点
+bgp-tools --help
+```
 
 ##### 1. 生成 Google 服务 IP 脚本
 
 ```bash
-python google.py
-# 或使用入口点
-bgp-google
+python main.py google
+python main.py google -o output.rsc -l MY-LIST
 ```
 
-生成 Google 服务 IPv4 地址的 RouterOS 脚本，输出文件为 `lst0-google`。
+生成 Google 服务 IPv4 地址的 RouterOS 脚本。
 
 ##### 2. 生成全球路由脚本（非中国 IP）
 
 ```bash
-python ipv6_global_route.py
-# 或使用入口点
-bgp-global
+python main.py global
+python main.py global -o output.rsc -l MY-LIST
 ```
 
-生成非中国 IPv4 CIDR 的 RouterOS 脚本，输出文件为 `lst0-global`。
+生成非中国 IPv4 CIDR 的 RouterOS 脚本。
 
 ##### 3. 生成直连规则脚本
 
 ```bash
-python add_direct_data.py
-# 或使用入口点
-bgp-direct
+python main.py direct
+python main.py direct -o output.rsc -l MY-LIST -x /path/to/xshell/config
 ```
 
 生成包含中国 IP、服务器 IP、Google 服务等直连规则的 RouterOS 脚本。
+
+##### 通用选项
+
+| 选项 | 说明 |
+|------|------|
+| `-o, --output` | 输出文件路径 |
+| `-l, --list` | 地址列表名称 |
+| `-v, --verbose` | 显示详细日志 |
+| `-q, --quiet` | 静默模式，只显示错误 |
 
 ### 📁 项目结构
 
 ```
 route-tools/
+├── main.py                # 主入口文件（统一 CLI）
 ├── config.py              # 全局配置文件
-├── google.py              # Google IP 脚本生成入口
-├── ipv6_global_route.py   # 全球路由脚本生成入口
-├── add_direct_data.py     # 直连规则脚本生成入口
 ├── generator/             # 配置生成器模块
 │   ├── ros.py            # RouterOS 脚本生成
 │   ├── bird.py           # BIRD 配置生成
@@ -532,9 +556,3 @@ isort .
 
 欢迎提交 Issue 和 Pull Request！
 
----
-
-## 📮 Contact | 联系方式
-
-- Author | 作者: wrinn
-- Repository | 仓库: [cjdxb/route-tools](https://github.com/cjdxb/route-tools)

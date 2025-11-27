@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "wrinn"}
+    {name = "cjdxb"}
 ]
 keywords = ["bgp", "routing", "mikrotik", "bird", "ip", "cidr"]
 classifiers = [
@@ -45,9 +45,10 @@ dev = [
 ]
 
 [project.scripts]
-bgp-google = "google:main"
-bgp-global = "ipv6_global_route:main"
-bgp-direct = "add_direct_data:main"
+bgp-tools = "main:main"
+bgp-google = "main:main"
+bgp-global = "main:main"
+bgp-direct = "main:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
