@@ -42,6 +42,10 @@ GOOGLE_DNS_IPS: List[str] = [
     '8.8.4.4',
 ]
 
+# ==================== 路径配置 ====================
+# Xshell 配置目录（用于 direct 模式读取服务器 IP）
+XSHELL_CONFIG_DIR: str = r'D:\Files Sync\SynologyDrive\配置文件\服务器安全\Xshell配置'
+
 # ==================== 日志配置 ====================
 LOG_LEVEL: str = 'INFO'
 LOG_FORMAT: str = '<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>'

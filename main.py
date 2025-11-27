@@ -10,10 +10,10 @@ BGP/IP 路由工具集主程序
 
 import argparse
 import sys
-from typing import List
 
 from loguru import logger
 
+from config import CUSTOMER_EXCLUDE_IPS, GOOGLE_DNS_IPS, XSHELL_CONFIG_DIR
 from generator.ros import generate_ros_script
 from source.clang import get_cn_cidr, get_non_cn_cidr
 from source.google import get_google_service_cidr
@@ -21,24 +21,7 @@ from source.xshell import read_xshell_dir_ips
 from utils.ip import get_opposite_cidr
 
 
-# ==================== 配置 ====================
-
-# 自定义排除的 IP 地址（直连）
-CUSTOMER_EXCLUDE_IP: List[str] = [
-    '216.218.221.6',
-    '216.218.221.42',
-    '74.82.46.6',
-    '103.177.162.23'
-]
-
-# Google DNS（可选排除）
-GOOGLE_DNS_IP: List[str] = ['8.8.8.8', '8.8.4.4']
-
-# Xshell 配置目录（用于 direct 模式）
-XSHELL_CONFIG_DIR = r'D:\Files Sync\SynologyDrive\配置文件\服务器安全\Xshell配置'
-
-
-# ==================== 功能函数 ====================
+# ==================== 功能函数 ======================================
 
 def cmd_google(output: str, addr_list: str) -> int:
     """
@@ -105,7 +88,7 @@ def cmd_direct(output: str, addr_list: str, xshell_dir: str = None) -> int:
     logger.info(f'Got {len(google_ip)} Google service IPv4 entries')
     
     # 合并所有直连 IP
-    direct_ip = cn_cidr + server_ip + CUSTOMER_EXCLUDE_IP + google_ip
+    direct_ip = cn_cidr + server_ip + CUSTOMER_EXCLUDE_IPS + google_ip
     logger.info(f'Total direct IPs: {len(direct_ip)} entries')
     
     # 生成代理 IP（补集）
